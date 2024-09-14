@@ -1,0 +1,42 @@
+{
+  "name": "e-commerce-backend-mini",
+  "version": "1.0.0",
+  "description": "Express Typescript backend for the Coder's Den e-commerce-mini project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "dev": "node ./dist/index.js",
+    "start": "npm run build && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codegiyu/e-commerce-backend-mini.git"
+  },
+  "keywords": [
+    "e-commerce",
+    "auth",
+    "cookies",
+    "jwt"
+  ],
+  "author": "Codegiyu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codegiyu/e-commerce-backend-mini/issues"
+  },
+  "homepage": "https://github.com/codegiyu/e-commerce-backend-mini#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.6.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.5.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  }
+}

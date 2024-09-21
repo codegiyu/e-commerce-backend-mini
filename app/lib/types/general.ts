@@ -1,3 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
+import { User } from "./user";
 
-export type RouteController = (req: Request, res: Response) => void;
+// interface extra {
+//   user: { _id: unknown } & Omit<User, "password" | "address">;
+// }
+export type RouteController = (
+  req: Request, //& extra,
+  res: Response,
+  next: NextFunction
+) => void;

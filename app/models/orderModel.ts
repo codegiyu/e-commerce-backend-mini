@@ -1,12 +1,6 @@
 import { Schema, model } from "mongoose";
 import { OrderDocument } from "../lib/types/order";
 
-const couponSchema = new Schema({
-  name: { type: String, required: true },
-  discount: { type: Number, required: true },
-  isActive: { type: Boolean, required: true, default: false },
-});
-
 const orderSchema = new Schema<OrderDocument>({
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 
@@ -26,7 +20,7 @@ const orderSchema = new Schema<OrderDocument>({
   },
   totalPrice: { type: Number, required: true },
   isPaid: { type: Boolean, required: true, default: false },
-  coupon: couponSchema,
+  coupon: { type: Schema.Types.ObjectId, ref: "Coupon" },
 });
 
 export const Order = model<OrderDocument>("Order", orderSchema);

@@ -4,10 +4,17 @@ import { Category } from "./category";
 export interface Product {
   name: string;
   description: string;
-  price: number;
+  price: Array<number>;
   countInStock: number;
   category: Category;
-  rating: number;
+  rating: Array<number>;
+  img: Array<{
+    color: string;
+    url: Array<string>;
+  }>;
+  size: Array<string>;
+  isNew: boolean;
+  discount: number;
 }
 
 export interface ProductDocument extends Product, Document {}

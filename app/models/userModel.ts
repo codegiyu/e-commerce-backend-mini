@@ -2,6 +2,11 @@ import bcrypt from "bcryptjs";
 import { model, Schema } from "mongoose";
 import { UserDocument } from "../lib/types/user";
 
+export enum roleType {
+  "customer",
+  "admin",
+}
+
 const userSchema = new Schema(
   {
     firstName: { type: String, required: true },
@@ -9,7 +14,18 @@ const userSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     address: { type: String, required: false },
-    isAdmin: { type: Boolean, required: true, default: false },
+    phoneNumber: { type: String, required: false },
+    role: {
+      type: String,
+      required: true,
+      enum: [roleType.customer, roleType.admin],
+      default: roleType.customer,
+    },
+    wishLists: [
+      {
+        product: { type: Schema.Types.ObjectId, ref: "Product" },
+      },
+    ],
   },
   {
     timestamps: true, // Automatically create createdAt timestamp

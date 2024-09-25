@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import cors from "cors";
 import { authRouter, testRouter } from "./app/routes/v1";
 import { connectDB } from "./app/config/db";
+import cookieParser from "cookie-parser";
 
 const app: Express = express();
 const port = process.env.PORT || 3005;
@@ -12,6 +13,7 @@ const corsOptions = {
 
 connectDB();
 
+app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

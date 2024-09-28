@@ -1,29 +1,61 @@
-import { RouteController } from '../../lib/types/general';
+import { RouteController } from "../../lib/types/general";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  TOKENS_EXPIRY,
+} from "../../lib/constants/auth";
+import { User } from "../../models/userModel";
 
 export const login: RouteController = async (req, res) => {
   try {
-    // TODO: Write the rest of the logic here
-    // This endpoint will be called when the login form is submitted
-    // It's purpose is to check if the submitted email and password are valid
-    // If they are, grab the user's details from the db and send along
-    // Also generate an access and refresh jwt token. You can store the user's id, email and maybe names in the access token
-    // Then set those tokens as cookies
-    // Else you can return a 400 Bad Request
+    const { email, password } = req.body;
 
+    const user = await User.findOne({ email });
 
-    res.status(200).send({
-      success: true,
-      data: {
-        user: {} // User object here
-      },
-      message: 'User logged in successfully',
-    })
+    if (user && (await user.matchPassword(password))) {
+      const accessToken = generateAccessToken(
+        user._id as string,
+        user.email,
+        user.firstName,
+        user.lastName
+      );
+      const refreshToken = generateRefreshToken(user._id as string);
+
+      // Set the tokens in cookies
+      res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: TOKENS_EXPIRY.ACCESS, // 15 minutes
+      });
+
+      res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: TOKENS_EXPIRY.REFRESH, // 30 days
+      });
+
+      res.status(200).json({
+        success: true,
+        data: {
+          _id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          role: user.role,
+        },
+        message: "User logged in successfully",
+      });
+    } else {
+      res.status(401).json({ message: "Invalid email or password" });
+    }
   } catch (err: any) {
-    console.error('Error logging in: ', err);
+    console.error("Error logging in: ", err);
     res.status(500).send({
       success: false,
       error: err.message,
-      message: 'Log in failed'
-    })
+      message: "Log in failed",
+    });
   }
 };

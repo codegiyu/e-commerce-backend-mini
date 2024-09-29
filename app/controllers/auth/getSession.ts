@@ -1,6 +1,8 @@
 import { RouteController } from "../../lib/types/general";
 import jwt from "jsonwebtoken";
 import { User } from "../../models/userModel";
+import { generateAccessToken, TOKENS_EXPIRY } from "../../lib/constants/auth";
+
 export const getSession: RouteController = async (req, res) => {
   try {
     const { accessToken, refreshToken } = req.cookies;
@@ -28,6 +30,29 @@ export const getSession: RouteController = async (req, res) => {
         id: string;
       };
       user = await User.findById(decoded.id).select("-password");
+      if (user) {
+        // Generate new access token
+        const newAccessToken = generateAccessToken(
+          user._id as string,
+          user.email,
+          user.firstName,
+          user.lastName
+        );
+        res.cookie("accessToken", newAccessToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
+          maxAge: TOKENS_EXPIRY.ACCESS, // 15 minutes
+        });
+
+        return res.json({
+          _id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          role: user.role,
+        });
+      }
     }
 
     if (!user) {

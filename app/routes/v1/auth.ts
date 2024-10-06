@@ -4,7 +4,9 @@ import {
   signup,
   login,
   refreshAccessToken,
-} from "../../controllers/user/auth";
+  logoutUser,
+} from "../../controllers/auth";
+import { protect } from "../../middlewares/authMiddleware";
 
 export const router: Router = express.Router();
 
@@ -15,3 +17,4 @@ router.get("/get-session", getSession);
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/refresh", refreshAccessToken);
+router.post("/logout", protect, logoutUser);

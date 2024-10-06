@@ -4,7 +4,7 @@ import {
   signup,
   login,
   refreshAccessToken,
-} from "../../controllers/auth";
+} from "../../controllers/user/auth";
 import { admin, protect } from "../../middlewares/authMiddleware";
 import {
   getAllUsers,
@@ -12,7 +12,7 @@ import {
   updateUser,
   deleteUser,
   logoutUser,
-} from "../../controllers/userController";
+} from "../../controllers/user/userController";
 
 export const router: Router = express.Router();
 

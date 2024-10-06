@@ -2,10 +2,11 @@ import bcrypt from "bcryptjs";
 import { model, Schema } from "mongoose";
 import { UserDocument } from "../lib/types/user";
 
-export enum roleType {
-  "customer",
-  "admin",
-}
+// export enum roleType {
+//   "customer",
+//   "admin",
+//   roleType.customer, roleType.admin
+// }
 
 const userSchema = new Schema(
   {
@@ -18,8 +19,8 @@ const userSchema = new Schema(
     role: {
       type: String,
       required: true,
-      enum: [roleType.customer, roleType.admin],
-      default: roleType.customer,
+      enum: ["customer", "admin"],
+      default: "customer",
     },
     wishLists: [
       {

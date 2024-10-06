@@ -1,10 +1,10 @@
-import { RouteController } from "../../lib/types/general";
+import { RouteController } from "../../../lib/types/general";
 import {
   generateAccessToken,
   generateRefreshToken,
   TOKENS_EXPIRY,
-} from "../../lib/constants/auth";
-import { User } from "../../models/userModel";
+} from "../../../lib/constants/auth";
+import { User } from "../../../models/userModel";
 
 export const login: RouteController = async (req, res) => {
   try {

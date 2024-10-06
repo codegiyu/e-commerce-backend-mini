@@ -4,7 +4,7 @@ import {
   signup,
   login,
   refreshAccessToken,
-} from "../../controllers/auth";
+} from "../../controllers/user/auth";
 
 export const router: Router = express.Router();
 

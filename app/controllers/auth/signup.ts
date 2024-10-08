@@ -2,9 +2,9 @@ import {
   generateAccessToken,
   generateRefreshToken,
   TOKENS_EXPIRY,
-} from "../../../lib/constants/auth";
-import { RouteController } from "../../../lib/types/general";
-import { User } from "../../../models/userModel";
+} from "../../lib/constants/auth";
+import { RouteController } from "../../lib/types/general";
+import { User } from "../../models/userModel";
 
 export const signup: RouteController = async (req, res) => {
   try {

@@ -7,14 +7,16 @@ import {
   logoutUser,
 } from "../../controllers/auth";
 import { protect } from "../../middlewares/authMiddleware";
+import {
+  validateLogin,
+  validateSignup,
+} from "../../middlewares/validationMiddleware";
 
 export const router: Router = express.Router();
 
 router.get("/get-session", getSession);
-// TODO: Come up with a way to handle validating data coming in
-// The figma link is in the readme so check it out and see the required
-// inputs and stuctures of different things around the app
-router.post("/signup", signup);
-router.post("/login", login);
-router.post("/refresh", refreshAccessToken);
+router.post("/signup", validateSignup, signup);
+router.post("/login", validateLogin, login);
 router.post("/logout", protect, logoutUser);
+
+router.post("/refresh", refreshAccessToken);

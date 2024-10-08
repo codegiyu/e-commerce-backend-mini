@@ -1,6 +1,6 @@
 import { RouteController } from "../../lib/types/general";
 
-// @desc: Log out a user by clearing the access and refresh token cookies
+//  Log out a user by clearing the access and refresh token cookies
 // @route: POST /api/users/logout
 export const logoutUser: RouteController = async (req, res) => {
   res.cookie("accessToken", "", {

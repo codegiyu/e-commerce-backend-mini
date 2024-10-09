@@ -12,6 +12,7 @@ export const updateUser: RouteController = async (req, res) => {
     user.email = req.body.email || user.email;
     user.address = req.body.address || user.address;
     user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+    user._id = req.params.id;
 
     const updatedUser = await user.save();
 

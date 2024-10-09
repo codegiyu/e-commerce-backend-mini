@@ -7,7 +7,10 @@ export const protect: RouteController = async (req, res, next) => {
   const { accessToken } = req.cookies;
 
   if (!accessToken) {
-    return res.status(401).json({ message: "Not authorized, no token" });
+    return res.status(401).json({ 
+      success: false,
+      message: "Not authorized, no token" 
+    });
   }
 
   try {
@@ -16,7 +19,7 @@ export const protect: RouteController = async (req, res, next) => {
     };
     const user = await User.findById(decoded.id).select("-password");
     if (user) {
-      req.user = user; // Only assign if user is not null
+      req.user = user; 
     }
 
     next();

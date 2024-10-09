@@ -4,7 +4,7 @@ import {
   TOKENS_EXPIRY,
 } from "../../lib/constants/auth";
 import { RouteController } from "../../lib/types/general";
-import { User } from "../../models/userModel";
+import { User } from "../../models";
 
 export const signup: RouteController = async (req, res) => {
   try {

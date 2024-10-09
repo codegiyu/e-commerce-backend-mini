@@ -4,7 +4,7 @@ import {
   generateRefreshToken,
   TOKENS_EXPIRY,
 } from "../../lib/constants/auth";
-import { User } from "../../models/userModel";
+import { User } from "../../models";
 
 export const login: RouteController = async (req, res) => {
   try {

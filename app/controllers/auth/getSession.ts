@@ -1,6 +1,6 @@
 import { RouteController } from "../../lib/types/general";
 import jwt from "jsonwebtoken";
-import { User } from "../../models/userModel";
+import { User } from "../../models";
 import { generateAccessToken, TOKENS_EXPIRY } from "../../lib/constants/auth";
 
 export const getSession: RouteController = async (req, res) => {

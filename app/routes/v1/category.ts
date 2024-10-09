@@ -17,4 +17,4 @@ router.delete("/delete/:id", admin, deleteCategory);
 router.get("/all", getAllCategories);
 router.get("/:id", getSpecificCategory);
 
-export default router;
+

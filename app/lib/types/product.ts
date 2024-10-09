@@ -6,7 +6,7 @@ export interface Product {
   description: string;
   price: Array<number>;
   countInStock: number;
-  category: Category;
+  category: Array<Category>;
   rating: Array<number>;
   img: Array<{
     color: string;

@@ -1,6 +1,12 @@
 import express, { Express } from "express";
 import cors from "cors";
-import { authRouter, categoryRouter, testRouter, userRouter } from "./app/routes/v1";
+import {
+  authRouter,
+  categoryRouter,
+  productRouter,
+  testRouter,
+  userRouter,
+} from "./app/routes/v1";
 import { connectDB } from "./app/config/db";
 import cookieParser from "cookie-parser";
 
@@ -28,7 +34,8 @@ app.use((_, res, next) => {
 app.use("/v1/auth", authRouter);
 app.use("/v1/test", testRouter);
 app.use("/v1/user", userRouter);
-app.use("v1/category", categoryRouter)
+app.use("/v1/category", categoryRouter);
+app.use("/v1/product", productRouter);
 
 app.listen(port, () =>
   console.log(

@@ -1,7 +1,7 @@
-import { RouteController } from "../../../lib/types/general";
+import { RouteController } from "../../lib/types/general";
 import jwt from "jsonwebtoken";
-import { User } from "../../../models/userModel";
-import { TOKENS_EXPIRY } from "../../../lib/constants/auth";
+import { User } from "../../models";
+import { TOKENS_EXPIRY } from "../../lib/constants/auth";
 
 // @desc: Refresh access token using refresh token
 // @route: POST /api/users/refresh

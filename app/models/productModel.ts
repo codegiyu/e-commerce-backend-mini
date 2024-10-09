@@ -6,7 +6,7 @@ const productSchema = new Schema<ProductDocument>({
   description: { type: String, required: true },
   price: [{ type: Number, required: true }],
   countInStock: { type: Number, required: true },
-  category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+  category: [{ type: Schema.Types.ObjectId, ref: "Category", required: true }],
   rating: [{ type: Number, required: true, default: [] }],
   size: [
     {

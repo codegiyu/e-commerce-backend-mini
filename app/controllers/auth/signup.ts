@@ -8,7 +8,7 @@ import { User } from "../../models";
 
 export const signup: RouteController = async (req, res) => {
   try {
-    const { firstName, lastName, email, password, address, phoneNumber } =
+    const { firstName, lastName, email, password, address, phoneNumber, role } =
       req.body;
 
     // Validate the input
@@ -41,6 +41,7 @@ export const signup: RouteController = async (req, res) => {
       password,
       address,
       phoneNumber,
+      role: role === "admin" ? "admin" : "customer",
     });
     await user.save();
 

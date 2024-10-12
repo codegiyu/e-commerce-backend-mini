@@ -21,7 +21,7 @@ export const getAllProducts: RouteController = async (req, res) => {
 export const getSpecificProduct: RouteController = async (req, res) => {
   try {
     const { id } = req.params;
-    const product = await Product.findById(id).populate("category");
+    const product = await Product.findById(id).populate("category", "name");
 
     if (!product) {
       return res.status(404).json({

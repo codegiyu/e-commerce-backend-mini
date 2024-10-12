@@ -1,10 +1,23 @@
 import { Request, Response, NextFunction } from "express";
-import { User } from "./user";
+import { ObjectId } from "mongoose";
+import { Product } from "./product";
 
 declare global {
   namespace Express {
     interface Request {
-      user?: User;
+      user?: {
+        _id: ObjectId,
+        firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  address: string,
+  phoneNumber: string,
+  role: string,
+  wishLists: Array<{
+    product: Product;
+  }>,
+      };
     }
   }
 }

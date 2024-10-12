@@ -1,4 +1,4 @@
-import { Model, Document } from "mongoose";
+import { Model, Document, ObjectId } from "mongoose";
 import { Product } from "./product";
 
 export interface User {
@@ -9,13 +9,13 @@ export interface User {
   address: string;
   phoneNumber: string;
   role: string;
-  wishlist: Array<
-  {
-    product:Product
+  wishLists: Array<{
+    product: Product;
   }>;
 }
 
 export interface UserDocument extends User, Document {
+  _id : ObjectId;
   matchPassword: (password: string) => Promise<Boolean>;
 }
 

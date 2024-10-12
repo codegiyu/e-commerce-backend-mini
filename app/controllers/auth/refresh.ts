@@ -3,8 +3,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../../models";
 import { TOKENS_EXPIRY } from "../../lib/constants/auth";
 
-// @desc: Refresh access token using refresh token
-// @route: POST /api/users/refresh
+
 export const refreshAccessToken: RouteController = async (req, res) => {
   const { refreshToken } = req.cookies;
 

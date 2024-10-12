@@ -34,6 +34,6 @@ export const validateLogin = [
     .isEmail()
     .normalizeEmail()
     .escape(),
-  body("password", "Password is required").isEmpty().escape(),
+  body("password", "Password is required").notEmpty().escape(),
   handleValidationErrors,
 ];

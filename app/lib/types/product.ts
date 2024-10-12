@@ -4,7 +4,7 @@ import { Category } from "./category";
 export interface Product {
   name: string;
   description: string;
-  price: Array<number>;
+  price: number[];
   countInStock: number;
   category: Array<Category>;
   rating: Array<number>;
@@ -13,7 +13,7 @@ export interface Product {
     url: Array<string>;
   }>;
   size: Array<string>;
-  isNew: boolean;
+  tag: string;
   discount: number;
 }
 

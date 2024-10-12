@@ -8,7 +8,7 @@ import { UserDocument } from "../lib/types/user";
 //   roleType.customer, roleType.admin
 // }
 
-const userSchema = new Schema(
+const userSchema = new Schema<UserDocument>(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },

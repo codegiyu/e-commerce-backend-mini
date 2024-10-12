@@ -1,8 +1,6 @@
 import { RouteController } from "../../lib/types/general";
 import { User } from "../../models/userModel";
 
-// @desc: Update user details
-// @route: PUT /api/users/:id
 export const updateUser: RouteController = async (req, res) => {
   const user = await User.findById(req.params.id);
 

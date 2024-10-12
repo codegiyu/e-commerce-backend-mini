@@ -5,11 +5,13 @@ import {
   getSpecificUser,
   updateUser,
   deleteUser,
+  addToWishlist,
 } from "../../controllers/user";
 
 export const router: Router = express.Router();
 
-router.get("/", protect, admin, getAllUsers);
+router.get("/all", protect, admin, getAllUsers);
 router.get("/:id", protect, admin, getSpecificUser);
-router.put("/:id", protect, updateUser);
-router.delete("/:id", protect, admin, deleteUser);
+router.post("/wishlist", protect, addToWishlist);
+router.put("update/:id", protect, updateUser);
+router.delete("delete/:id", protect, admin, deleteUser);

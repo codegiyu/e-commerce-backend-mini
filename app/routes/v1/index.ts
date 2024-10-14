@@ -3,5 +3,13 @@ import { router as testRouter } from "./test";
 import { router as userRouter } from "./user";
 import { router as categoryRouter } from "./category";
 import { router as productRouter } from "./product";
+import { router as couponRouter } from "./coupon";
 
-export { authRouter, testRouter, userRouter, categoryRouter, productRouter };
+export {
+  authRouter,
+  testRouter,
+  userRouter,
+  categoryRouter,
+  productRouter,
+  couponRouter,
+};

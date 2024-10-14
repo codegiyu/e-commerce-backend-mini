@@ -7,7 +7,7 @@ export const getAllCategories: RouteController = async (req, res) => {
     res.status(200).json({
       success: true,
       data: categories,
-      message: "All Category retrieved successfully",
+      message: "All categories retrieved successfully",
     });
   } catch (err: any) {
     res.status(500).json({

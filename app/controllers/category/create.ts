@@ -3,8 +3,8 @@ import { RouteController } from "../../lib/types/general";
 import { Category } from "../../models";
 
 export const handleValidation = [
-  body("name").trim().isEmpty().withMessage("Category name must be provided")
-]
+  body("name").trim().isEmpty().withMessage("Category name must be provided"),
+];
 
 export const createCategory: RouteController = async (req, res, next) => {
   try {

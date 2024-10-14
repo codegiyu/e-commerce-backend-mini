@@ -3,6 +3,7 @@ import cors from "cors";
 import {
   authRouter,
   categoryRouter,
+  couponRouter,
   productRouter,
   testRouter,
   userRouter,
@@ -36,6 +37,7 @@ app.use("/v1/test", testRouter);
 app.use("/v1/user", userRouter);
 app.use("/v1/category", categoryRouter);
 app.use("/v1/product", productRouter);
+app.use("/v1/coupon", couponRouter);
 
 app.listen(port, () =>
   console.log(

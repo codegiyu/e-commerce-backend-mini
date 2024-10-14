@@ -18,34 +18,28 @@ export const addProduct: RouteController = async (req, res) => {
     } = req.body;
 
     let categoryIds: any[] = [];
-
-    // To Convert category name(s) to ObjectId(s)
-    if (typeof category === "string") {
+    const findCategory = async (value: string) => {
       const foundCategory = await Category.findOne({
-        name: { $regex: new RegExp(category, "i") },
+        name: { $regex: new RegExp(value, "i") },
       });
 
       if (!foundCategory) {
-        return res
-          .status(400)
-          .json({ message: `Category ${category} not found` });
+        return res.status(400).json({ message: `Category ${value} not found` });
       }
+
       categoryIds.push(foundCategory._id);
+    };
+
+    // To Convert category name(s) to ObjectId(s)
+    if (typeof category === "string") {
+      findCategory(category);
     } else if (Array.isArray(category)) {
       for (const catName of category) {
-        const foundCategory = await Category.findOne({
-          name: { $regex: new RegExp(catName, "i") },
-        });
-        if (foundCategory) {
-          categoryIds.push(foundCategory._id);
-        } else {
-          return res
-            .status(400)
-            .json({ message: `Category ${catName} not found` });
-        }
+        findCategory(catName);
       }
     }
     validateProduct;
+
     const product = new Product({
       name,
       description,

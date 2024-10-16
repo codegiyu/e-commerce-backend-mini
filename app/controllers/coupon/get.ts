@@ -1,5 +1,5 @@
 import { RouteController } from "../../lib/types/general";
-import { Coupon, Order, Product } from "../../models";
+import { Coupon, Order } from "../../models";
 
 export const getAllCoupons: RouteController = async (req, res) => {
   try {

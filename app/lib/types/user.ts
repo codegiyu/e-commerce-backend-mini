@@ -15,7 +15,7 @@ export interface User {
 }
 
 export interface UserDocument extends User, Document {
-  _id : ObjectId;
+  _id : string;
   matchPassword: (password: string) => Promise<Boolean>;
 }
 

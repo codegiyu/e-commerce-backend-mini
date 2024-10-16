@@ -4,6 +4,7 @@ import { router as userRouter } from "./user";
 import { router as categoryRouter } from "./category";
 import { router as productRouter } from "./product";
 import { router as couponRouter } from "./coupon";
+import { router as orderRouter } from "./order"
 
 export {
   authRouter,
@@ -12,4 +13,5 @@ export {
   categoryRouter,
   productRouter,
   couponRouter,
+  orderRouter
 };

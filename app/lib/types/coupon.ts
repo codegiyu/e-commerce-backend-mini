@@ -1,7 +1,7 @@
 import { Model, Document } from "mongoose";
 
 export interface Coupon {
-  name: string;
+  code: string;
   discount: number;
   isActive: boolean;
 }

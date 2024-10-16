@@ -7,6 +7,7 @@ import {
   productRouter,
   testRouter,
   userRouter,
+  orderRouter,
 } from "./app/routes/v1";
 import { connectDB } from "./app/config/db";
 import cookieParser from "cookie-parser";
@@ -38,6 +39,7 @@ app.use("/v1/user", userRouter);
 app.use("/v1/category", categoryRouter);
 app.use("/v1/product", productRouter);
 app.use("/v1/coupon", couponRouter);
+app.use("/v1/order", orderRouter);
 
 app.listen(port, () =>
   console.log(

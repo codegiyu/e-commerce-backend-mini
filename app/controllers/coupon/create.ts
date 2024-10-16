@@ -1,25 +1,28 @@
 import { body } from "express-validator";
 import { RouteController } from "../../lib/types/general";
 import { Coupon } from "../../models";
+import { handleValidationErrors } from "../../middlewares/userValidationMiddleware";
 
 export const handleValidation = [
-  body("name").trim().isEmpty().withMessage("Coupon name must be provided"),
+  body("code").trim().isEmpty().withMessage("Coupon code must be provided"),
   body("discount", "discount must be provided")
     .notEmpty()
     .isNumeric()
     .withMessage("discount must be a number"),
   body("isActive", "specify if the coupon is active or not").isBoolean(),
+
+  handleValidationErrors,
 ];
 
 export const createCoupon: RouteController = async (req, res, next) => {
   try {
-    const { name, discount, isActive } = req.body;
+    const { code, discount, isActive } = req.body;
 
-    if (!name || !discount || !isActive) {
-      res.json({ message: "provide name, discount and isActive" });
+    if (!code || !discount || !isActive) {
+      res.json({ message: "provide code, discount and isActive" });
     }
 
-    const coupon = new Coupon({ name, discount, isActive });
+    const coupon = new Coupon({ code, discount, isActive });
     const savedCoupon = await coupon.save();
 
     res.status(201).json({

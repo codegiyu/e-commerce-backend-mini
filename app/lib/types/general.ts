@@ -6,17 +6,17 @@ declare global {
   namespace Express {
     interface Request {
       user?: {
-        _id: ObjectId,
-        firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
-  address: string,
-  phoneNumber: string,
-  role: string,
-  wishLists: Array<{
-    product: Product;
-  }>,
+        _id: string;
+        firstName: string;
+        lastName: string;
+        email: string;
+        password: string;
+        address: string;
+        phoneNumber: string;
+        role: string;
+        wishLists: Array<{
+          product: Product;
+        }>;
       };
     }
   }

@@ -1,8 +1,7 @@
 import { RouteController } from "../../lib/types/general";
 import jwt from "jsonwebtoken";
 import { User } from "../../models";
-import { TOKENS_EXPIRY } from "../../lib/constants/auth";
-
+import { generateAccessToken, TOKENS_EXPIRY } from "../../lib/constants/auth";
 
 export const refreshAccessToken: RouteController = async (req, res) => {
   const { refreshToken } = req.cookies;
@@ -24,16 +23,7 @@ export const refreshAccessToken: RouteController = async (req, res) => {
     }
 
     // Generate a new access token
-    const accessToken = jwt.sign(
-      {
-        id: user._id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-      },
-      process.env.JWT_ACCESS_SECRET!,
-      { expiresIn: TOKENS_EXPIRY.ACCESS / 1000 } // Expiry in seconds
-    );
+    const accessToken = generateAccessToken;
 
     // Set the new access token as a cookie
     res.cookie("accessToken", accessToken, {

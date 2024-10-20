@@ -9,6 +9,14 @@ export const handleValidation = [
     .notEmpty()
     .isNumeric()
     .withMessage("discount must be a number"),
+  body("maxUsage", "maximum number of usage must be provided")
+    .notEmpty()
+    .isNumeric()
+    .withMessage("maxUsage must be a number"),
+  body("usageCount")
+    .optional()
+    .isNumeric()
+    .withMessage("usageCount must be a number"),
   body("isActive", "specify if the coupon is active or not").isBoolean(),
 
   handleValidationErrors,
@@ -16,13 +24,9 @@ export const handleValidation = [
 
 export const createCoupon: RouteController = async (req, res, next) => {
   try {
-    const { code, discount, isActive } = req.body;
+    const { code, discount, maxUsage, isActive } = req.body;
 
-    if (!code || !discount || !isActive) {
-      res.json({ message: "provide code, discount and isActive" });
-    }
-
-    const coupon = new Coupon({ code, discount, isActive });
+    const coupon = new Coupon({ code, discount, maxUsage, isActive });
     const savedCoupon = await coupon.save();
 
     res.status(201).json({

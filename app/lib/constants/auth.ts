@@ -1,3 +1,4 @@
+import { Response } from "express";
 import jwt from "jsonwebtoken";
 
 const ACCESS_TOKEN_EXPIRY = 1000 * 60 * 15; // 15 minutes in milliseconds;
@@ -26,5 +27,20 @@ export const generateAccessToken = (
 export const generateRefreshToken = (id: string) => {
   return jwt.sign({ id }, process.env.JWT_REFRESH_SECRET!, {
     expiresIn: TOKENS_EXPIRY.REFRESH / 1000, // Expiry in seconds
+  });
+};
+
+// Helper function to set token in cookies
+export const setCookie = (
+  res: Response,
+  key: string,
+  value: string,
+  expiry: number
+) => {
+  return res.cookie(key, value, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+    sameSite: "none",
+    maxAge: expiry,
   });
 };

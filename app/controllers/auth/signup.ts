@@ -1,6 +1,7 @@
 import {
   generateAccessToken,
   generateRefreshToken,
+  setCookie,
   TOKENS_EXPIRY,
 } from "../../lib/constants/auth";
 import { RouteController } from "../../lib/types/general";
@@ -8,23 +9,7 @@ import { User } from "../../models";
 
 export const signup: RouteController = async (req, res) => {
   try {
-    const { firstName, lastName, email, password, address, phoneNumber, role } =
-      req.body;
-
-    // Validate the input
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      !address ||
-      !phoneNumber
-    ) {
-      return res.status(400).json({
-        success: false,
-        message: "Incomplete user information",
-      });
-    }
+    const { firstName, lastName, email, password, role } = req.body;
 
     // Check if user already exists
     const userExists = await User.findOne({ email });
@@ -39,8 +24,6 @@ export const signup: RouteController = async (req, res) => {
       lastName,
       email,
       password,
-      address,
-      phoneNumber,
       role: role === "admin" ? "admin" : "customer",
     });
     await user.save();
@@ -56,19 +39,9 @@ export const signup: RouteController = async (req, res) => {
     const refreshToken = generateRefreshToken(user._id as string);
 
     // Set the tokens in cookies
-    res.cookie("accessToken", accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-      sameSite: "strict",
-      maxAge: TOKENS_EXPIRY.ACCESS, // 15 minutes
-    });
+    setCookie(res, "accessToken", accessToken, TOKENS_EXPIRY.ACCESS);
+    setCookie(res, "refreshToken", refreshToken, TOKENS_EXPIRY.REFRESH);
 
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: TOKENS_EXPIRY.REFRESH, // 30 days
-    });
     res.status(201).json({
       success: true,
       data: {

@@ -3,6 +3,8 @@ import { Model, Document } from "mongoose";
 export interface Coupon {
   code: string;
   discount: number;
+  maxUsage: number,
+  usageCount: number
   isActive: boolean;
 }
 

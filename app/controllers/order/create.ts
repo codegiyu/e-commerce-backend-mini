@@ -24,7 +24,7 @@ export const createOrder: RouteController = async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
 
-    validateOrder;
+   
 
     const newOrder = new Order({
       user: userId,

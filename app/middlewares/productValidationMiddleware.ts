@@ -1,4 +1,4 @@
-import { body, param } from "express-validator";
+import { body } from "express-validator";
 import { handleValidationErrors } from "./userValidationMiddleware";
 import { RouteController } from "../lib/types/general";
 

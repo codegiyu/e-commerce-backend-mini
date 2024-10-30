@@ -7,10 +7,11 @@ import {
   getOrders,
 } from "../../controllers/order";
 import { protect, admin } from "../../middlewares/authMiddleware";
+import { validateOrder } from "../../middlewares/validateOrder";
 
 export const router: Router = express.Router();
 
-router.post("/", protect, createOrder);
+router.post("/", protect, validateOrder, createOrder);
 
 router.get("/all", protect, admin, getOrders);
 

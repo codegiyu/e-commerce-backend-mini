@@ -14,7 +14,7 @@ import {
 
 export const router: Router = express.Router();
 
-router.get("/get-session", getSession);
+router.get("/session", getSession);
 router.post("/signup", validateSignup, signup);
 router.post("/login", validateLogin, login);
 router.post("/logout", protect, logoutUser);

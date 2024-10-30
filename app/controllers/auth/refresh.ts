@@ -1,7 +1,11 @@
 import { RouteController } from "../../lib/types/general";
 import jwt from "jsonwebtoken";
 import { User } from "../../models";
-import { generateAccessToken, TOKENS_EXPIRY } from "../../lib/constants/auth";
+import {
+  generateAccessToken,
+  setCookie,
+  TOKENS_EXPIRY,
+} from "../../lib/constants/auth";
 
 export const refreshAccessToken: RouteController = async (req, res) => {
   const { refreshToken } = req.cookies;
@@ -23,16 +27,16 @@ export const refreshAccessToken: RouteController = async (req, res) => {
     }
 
     // Generate a new access token
-    const accessToken = generateAccessToken;
+    const accessToken = generateAccessToken(
+      user._id as string,
+      user.email,
+      user.firstName,
+      user.lastName
+    );;
 
     // Set the new access token as a cookie
-    res.cookie("accessToken", accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: TOKENS_EXPIRY.ACCESS,
-    });
-
+    setCookie(res, "accessToken", accessToken, TOKENS_EXPIRY.ACCESS); 
+    
     res.status(200).json({
       success: true,
       message: "Access token refreshed successfully",

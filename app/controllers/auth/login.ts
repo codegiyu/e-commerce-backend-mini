@@ -2,6 +2,7 @@ import { RouteController } from "../../lib/types/general";
 import {
   generateAccessToken,
   generateRefreshToken,
+  setCookie,
   TOKENS_EXPIRY,
 } from "../../lib/constants/auth";
 import { User } from "../../models";
@@ -22,19 +23,8 @@ export const login: RouteController = async (req, res) => {
       const refreshToken = generateRefreshToken(user._id as string);
 
       // Set the tokens in cookies
-      res.cookie("accessToken", accessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: TOKENS_EXPIRY.ACCESS, // 15 minutes
-      });
-
-      res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: TOKENS_EXPIRY.REFRESH, // 30 days
-      });
+      setCookie(res, "accessToken", accessToken, TOKENS_EXPIRY.ACCESS); // 15-minute expiry
+      setCookie(res, "refreshToken", refreshToken, TOKENS_EXPIRY.REFRESH); // 30-day expiry
 
       res.status(200).json({
         success: true,

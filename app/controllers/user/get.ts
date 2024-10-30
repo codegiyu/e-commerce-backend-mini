@@ -1,9 +1,8 @@
 import { RouteController } from "../../lib/types/general";
 import { User } from "../../models/userModel";
 
-
 export const getAllUsers: RouteController = async (req, res) => {
-  const users = await User.find({});
+  const users = await User.find({}).select("-password");
   res.status(200).json({
     success: true,
     data: users,
@@ -11,9 +10,8 @@ export const getAllUsers: RouteController = async (req, res) => {
   });
 };
 
-
 export const getSpecificUser: RouteController = async (req, res) => {
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).select("-password");
   if (user) {
     res.status(200).json({
       success: true,

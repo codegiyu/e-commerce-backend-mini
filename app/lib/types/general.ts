@@ -1,11 +1,29 @@
 import { Request, Response, NextFunction } from "express";
-import { User } from "./user";
+import { ObjectId } from "mongoose";
+import { Product } from "./product";
 
-// interface extra {
-//   user: { _id: unknown } & Omit<User, "password" | "address">;
-// }
+declare global {
+  namespace Express {
+    interface Request {
+      user?: {
+        _id: string;
+        firstName: string;
+        lastName: string;
+        email: string;
+        password: string;
+        address: string;
+        phoneNumber: string;
+        role: string;
+        wishLists: Array<{
+          product: Product;
+        }>;
+      };
+    }
+  }
+}
+
 export type RouteController = (
-  req: Request, //& extra,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => void;

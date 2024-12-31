@@ -1,4 +1,4 @@
-import { RouteController } from '../../lib/types/general';
+import { RouteController } from "../../lib/types/general";
 
 export const sayHello: RouteController = async (req, res) => {
   try {
@@ -7,14 +7,14 @@ export const sayHello: RouteController = async (req, res) => {
     res.status(200).send({
       success: true,
       data: {},
-      message: 'Hi there. Yup, the route works',
-    })
+      message: "Hi there. Yup, the route works",
+    });
   } catch (err: any) {
-    console.error('Error saying hello: ', err);
+    console.error("Error saying hello: ", err);
     res.status(500).send({
       success: false,
       error: err.message,
-      message: 'Saying hello failed'
-    })
+      message: "Saying hello failed",
+    });
   }
 };

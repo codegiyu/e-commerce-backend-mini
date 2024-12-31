@@ -1,27 +1,31 @@
-import { RouteController } from '../../lib/types/general';
+import { RouteController } from "../../lib/types/general";
+import jwt from "jsonwebtoken";
+import { User } from "../../models";
 
 export const getSession: RouteController = async (req, res) => {
   try {
-    // TODO: Write the rest of the logic here
-    // This endpoint will be called once someone opens the app
-    // It's purpose is to check if they have auth tokens and if they are valid
-    // If they are, return the user's details
-    // Else you can return a 401 Unauthenticated error
+    const { accessToken } = req.cookies;
 
+    // If access token is available
+    const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET!) as {
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+    };
+    let user = await User.findById(decoded.id).select("-password");
+
+    if (!user) return res.status(404).json({ message: " user not found" });
 
     res.status(200).send({
       success: true,
-      data: {
-        user: {} // User object here
-      },
-      message: 'User tokens valid',
-    })
+      data: user,
+      message: "User tokens valid",
+    });
   } catch (err: any) {
-    console.error('Error getting session: ', err);
     res.status(500).send({
       success: false,
-      error: err.message,
-      message: 'Getting session failed'
-    })
+      message: `Error getting session: ${err.message}`,
+    });
   }
 };

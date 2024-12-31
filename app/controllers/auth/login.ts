@@ -1,29 +1,50 @@
 import { RouteController } from '../../lib/types/general';
+import {
+  comparePassword,
+  generateAccessToken,
+  generateRefreshToken,
+  setCookie,
+  TOKENS_EXPIRY,
+} from '../../lib/constants/auth';
+import { User } from '../../models';
 
 export const login: RouteController = async (req, res) => {
   try {
-    // TODO: Write the rest of the logic here
-    // This endpoint will be called when the login form is submitted
-    // It's purpose is to check if the submitted email and password are valid
-    // If they are, grab the user's details from the db and send along
-    // Also generate an access and refresh jwt token. You can store the user's id, email and maybe names in the access token
-    // Then set those tokens as cookies
-    // Else you can return a 400 Bad Request
+    const { email, password } = req.body;
 
+    const user = await User.findOne({ email }).select('password role');
+    if (!user)
+      return res
+        .status(404)
+        .json({ message: 'No user found with the provided email.' });
 
-    res.status(200).send({
+    const isPasswordMatch = await comparePassword(password, user.password);
+    if (!isPasswordMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const accessToken = generateAccessToken(
+      user._id as string,
+      user.email,
+      user.firstName,
+      user.lastName
+    );
+    const refreshToken = generateRefreshToken(user._id as string);
+
+    // Set the tokens in cookies
+    setCookie(res, 'accessToken', accessToken, TOKENS_EXPIRY.ACCESS); // 15-minute expiry
+    setCookie(res, 'refreshToken', refreshToken, TOKENS_EXPIRY.REFRESH); // 30-day expiry
+
+    res.status(200).json({
       success: true,
-      data: {
-        user: {} // User object here
-      },
+      data: user,
       message: 'User logged in successfully',
-    })
+    });
   } catch (err: any) {
     console.error('Error logging in: ', err);
-    res.status(500).send({
+    res.status(500).json({
       success: false,
-      error: err.message,
-      message: 'Log in failed'
-    })
+      message: `Log in failed: ${err.message}`,
+    });
   }
 };

@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import {
   authRouter,
@@ -32,6 +32,14 @@ app.use((_, res, next) => {
   res.set('Access-Control-Allow-Headers', 'Content-Type');
   res.set('Access-Control-Allow-Credentials', 'true');
   next();
+});
+
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).json({
+    success: true,
+    message: 'Exclusive e-commerce running...',
+    process: process.pid,
+  });
 });
 
 app.use('/v1/auth', authRouter);

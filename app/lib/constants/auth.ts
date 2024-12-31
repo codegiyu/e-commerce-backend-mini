@@ -1,5 +1,6 @@
 import { Response } from "express";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 const ACCESS_TOKEN_EXPIRY = 1000 * 60 * 15; // 15 minutes in milliseconds;
 const REFRESH_TOKEN_EXPIRY = 1000 * 60 * 60 * 24 * 30; // 30 days in milliseconds;
@@ -43,4 +44,17 @@ export const setCookie = (
     sameSite: "none",
     maxAge: expiry,
   });
+};
+
+//  helper function to hash password
+export const hashPassword = async (password: string) => {
+  return await bcrypt.hash(password, 10);
+};
+
+//  helper function to compare password
+export const comparePassword = async (
+  enteredPassword: string,
+  hashedPassword: string
+) => {
+  return await bcrypt.compare(enteredPassword, hashedPassword);
 };

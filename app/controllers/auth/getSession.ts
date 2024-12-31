@@ -15,19 +15,13 @@ export const getSession: RouteController = async (req, res) => {
     };
     let user = await User.findById(decoded.id).select("-password");
 
-    user
-      ? res.status(200).send({
-          success: true,
-          data: {
-            _id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            role: user.role,
-          },
-          message: "User tokens valid",
-        })
-      : res.status(401).json({ message: " user not found" });
+    if (!user) return res.status(404).json({ message: " user not found" });
+
+    res.status(200).send({
+      success: true,
+      data: user,
+      message: "User tokens valid",
+    });
   } catch (err: any) {
     res.status(500).send({
       success: false,

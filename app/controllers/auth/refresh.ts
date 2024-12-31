@@ -40,6 +40,7 @@ export const refreshAccessToken: RouteController = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Access token refreshed successfully",
+      accessToken
     });
   } catch (error) {
     res.status(401).json({ message: "Invalid refresh token" });

@@ -37,7 +37,7 @@ export const login: RouteController = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      data: [user, accessToken],
+      data: { user, accessToken: accessToken },
       message: 'User logged in successfully',
     });
   } catch (err: any) {

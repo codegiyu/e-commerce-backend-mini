@@ -51,7 +51,7 @@ export const signup: RouteController = async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        accessToken,
+        accessToken: accessToken,
       }, // user details without password
       message: 'User created successfully',
     });

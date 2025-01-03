@@ -11,6 +11,7 @@ A robust RESTful API for e-commerce operations including user management, produc
 - [Categories](#categories)
 - [Orders](#orders)
 - [Coupons](#coupons)
+- [Response formats](#response formats)
 
 ## 🔐 Authentication
 
@@ -195,7 +196,7 @@ POST /coupon/create
 }
 ```
 
-## 📋 Data Formats & Validation
+## 📋 Response formats
 
 ### success Response Format
 

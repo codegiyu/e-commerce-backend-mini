@@ -11,7 +11,7 @@ A robust RESTful API for e-commerce operations including user management, produc
 - [Categories](#categories)
 - [Orders](#orders)
 - [Coupons](#coupons)
-- [Response formats](#response formats)
+- [Response formats](#response-formats)
 
 ## 🔐 Authentication
 

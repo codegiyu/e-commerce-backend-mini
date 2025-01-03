@@ -4,9 +4,9 @@ import {
   hashPassword,
   setCookie,
   TOKENS_EXPIRY,
-} from "../../lib/constants/auth";
-import { RouteController } from "../../lib/types/general";
-import { User } from "../../models";
+} from '../../lib/constants/auth';
+import { RouteController } from '../../lib/types/general';
+import { User } from '../../models';
 
 export const signup: RouteController = async (req, res) => {
   try {
@@ -15,7 +15,7 @@ export const signup: RouteController = async (req, res) => {
     // Check if user already exists
     const userExists = await User.findOne({ email });
     if (userExists)
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: 'User already exists' });
 
     // Hash password
     const hashedPassword = await hashPassword(password);
@@ -26,7 +26,7 @@ export const signup: RouteController = async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
-      role: role === "admin" ? "admin" : "customer",
+      role: role === 'admin' ? 'admin' : 'customer',
     });
     await user.save();
 
@@ -41,8 +41,8 @@ export const signup: RouteController = async (req, res) => {
     const refreshToken = generateRefreshToken(user._id as string);
 
     // Set the tokens in cookies
-    setCookie(res, "accessToken", accessToken, TOKENS_EXPIRY.ACCESS);
-    setCookie(res, "refreshToken", refreshToken, TOKENS_EXPIRY.REFRESH);
+    setCookie(res, 'accessToken', accessToken, TOKENS_EXPIRY.ACCESS);
+    setCookie(res, 'refreshToken', refreshToken, TOKENS_EXPIRY.REFRESH);
 
     res.status(201).json({
       success: true,
@@ -51,8 +51,9 @@ export const signup: RouteController = async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        accessToken: accessToken,
       }, // user details without password
-      message: "User created successfully",
+      message: 'User created successfully',
     });
   } catch (err: any) {
     res.status(500).json({

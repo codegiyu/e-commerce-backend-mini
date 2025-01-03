@@ -43,7 +43,6 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/v1/auth', authRouter);
-app.use('/v1/test', testRouter);
 app.use('/v1/user', userRouter);
 app.use('/v1/category', categoryRouter);
 app.use('/v1/product', productRouter);
